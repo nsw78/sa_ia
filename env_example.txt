@@ -1,0 +1,26 @@
+# Exemplo de arquivo de variáveis de ambiente
+# Copie este conteúdo para um arquivo chamado .env na raiz do projeto
+
+# OpenAI
+OPENAI_API_KEY=your-openai-key-here
+
+# Anthropic (Claude)
+ANTHROPIC_API_KEY=your-anthropic-key-here
+
+# Google (Gemini)
+GEMINI_API_KEY=your-gemini-key-here
+
+# Pinecone
+PINECONE_API_KEY=your-pinecone-key-here
+PINECONE_ENVIRONMENT=your-environment
+
+# MLflow (opcional)
+MLFLOW_TRACKING_URI=http://localhost:5000
+
+# AWS (opcional)
+AWS_ACCESS_KEY_ID=your-aws-key
+AWS_SECRET_ACCESS_KEY=your-aws-secret
+
+# GCP (opcional)
+GOOGLE_APPLICATION_CREDENTIALS=path/to/credentials.json
+
