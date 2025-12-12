@@ -258,6 +258,3 @@ Após completar este roadmap, você estará preparado para:
 **🤖 Bons estudos e sucesso na sua jornada de IA!**
 
 </div>
-
-#   s a _ i a  
- 
