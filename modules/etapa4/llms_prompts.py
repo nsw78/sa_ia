@@ -84,7 +84,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Chat completion
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     messages=[
         {"role": "system", "content": "Você é um assistente especializado em IA."},
         {"role": "user", "content": "Explique o que são transformers em 3 linhas."}
@@ -97,7 +97,7 @@ print(response.choices[0].message.content)
 
 # Streaming
 stream = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     messages=[{"role": "user", "content": "Conte uma história curta"}],
     stream=True
 )
@@ -165,7 +165,7 @@ client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 # Chat
 message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
+    model="claude-sonnet-4-20250514",
     max_tokens=1024,
     messages=[
         {"role": "user", "content": "Explique redes neurais de forma simples"}
@@ -176,7 +176,7 @@ print(message.content[0].text)
 
 # Com system prompt
 message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
+    model="claude-sonnet-4-20250514",
     max_tokens=1024,
     system="Você é um professor de IA que explica conceitos de forma clara.",
     messages=[
@@ -188,7 +188,7 @@ print(message.content[0].text)
 
 # Streaming
 with client.messages.stream(
-    model="claude-3-5-sonnet-20241022",
+    model="claude-sonnet-4-20250514",
     max_tokens=1024,
     messages=[{"role": "user", "content": "Conte uma piada sobre IA"}]
 ) as stream:
@@ -201,9 +201,9 @@ with client.messages.stream(
     st.markdown("### Comparação de Modelos:")
     
     comparison = {
-        "Modelo": ["GPT-4o", "GPT-4o-mini", "Claude 3.5 Sonnet", "Gemini 1.5 Pro", "Llama 3.1"],
-        "Contexto": ["128K tokens", "128K tokens", "200K tokens", "2M tokens", "128K tokens"],
-        "Uso": ["Geral, complexo", "Rápido, barato", "Reasoning, code", "Contexto longo", "Open source"]
+        "Modelo": ["GPT-5", "GPT-4.1", "Claude Opus 4", "Claude Sonnet 4", "Gemini 2.5 Pro", "Llama 4"],
+        "Contexto": ["256K tokens", "1M tokens", "200K tokens", "200K tokens", "2M tokens", "128K tokens"],
+        "Uso": ["Frontier, reasoning", "Rapido, longo contexto", "Deep analysis, code", "Fast, balanced", "Contexto longo", "Open source"]
     }
     
     import pandas as pd
@@ -232,7 +232,7 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama --version
 
 # Baixar modelos
-ollama pull llama3.1
+ollama pull llama4
 ollama pull mistral
 ollama pull codellama
 
@@ -240,7 +240,7 @@ ollama pull codellama
 ollama list
 
 # Rodar modelo
-ollama run llama3.1
+ollama run llama4
 """
     
     st.code(installation, language="bash")
@@ -256,7 +256,7 @@ url = "http://localhost:11434/api/generate"
 
 # Fazer requisição
 data = {
-    "model": "llama3.1",
+    "model": "llama4",
     "prompt": "Explique machine learning em 3 linhas",
     "stream": False
 }
@@ -279,7 +279,7 @@ import ollama
 
 # Gerar texto
 response = ollama.generate(
-    model='llama3.1',
+    model='llama4',
     prompt='Por que o céu é azul?'
 )
 print(response['response'])
@@ -289,7 +289,7 @@ messages = [
     {'role': 'user', 'content': 'Por que Python é popular em IA?'}
 ]
 
-response = ollama.chat(model='llama3.1', messages=messages)
+response = ollama.chat(model='llama4', messages=messages)
 print(response['message']['content'])
 """
     
@@ -317,8 +317,8 @@ def render_tokenizacao():
     code = """
 import tiktoken
 
-# Encoder para GPT-4
-encoding = tiktoken.encoding_for_model("gpt-4")
+# Encoder para GPT-4.1
+encoding = tiktoken.encoding_for_model("gpt-4.1")
 
 # Tokenizar texto
 text = "Inteligência Artificial está revolucionando o mundo!"
@@ -507,7 +507,7 @@ for prompt in prompts:
     # Gerar 3 respostas para cada
     for _ in range(3):
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7
         )
@@ -616,7 +616,7 @@ messages = [
 ]
 
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     messages=messages,
     tools=tools,
     tool_choice="auto"
@@ -646,7 +646,7 @@ if tool_calls:
     
     # Gerar resposta final
     final_response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4.1",
         messages=messages
     )
     

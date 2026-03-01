@@ -1,14 +1,15 @@
 <div align="center">
 
-# SA-IA &mdash; Sistema de Aprendizado de IA
+# SA-IA Academy
 
-**Plataforma educacional interativa para formacao completa em Engenharia de IA**
+**Plataforma enterprise de formacao completa em Engenharia de Inteligencia Artificial**
 
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab?logo=python&logoColor=white)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.30%2B-ff4b4b?logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ed?logo=docker&logoColor=white)](https://docker.com)
 [![License MIT](https://img.shields.io/badge/License-MIT-22c55e)](LICENSE)
 [![Health Check](https://img.shields.io/badge/Healthcheck-Enabled-22c55e)]()
+[![Content](https://img.shields.io/badge/Content-2026-667eea)]()
 
 </div>
 
@@ -18,7 +19,8 @@
 
 - [Visao Geral](#visao-geral)
 - [Arquitetura](#arquitetura)
-- [Roadmap de 8 Etapas](#roadmap-de-8-etapas)
+- [Fluxo da Aplicacao](#fluxo-da-aplicacao)
+- [Roadmap de 8 Modulos](#roadmap-de-8-modulos)
 - [Stack Tecnologico](#stack-tecnologico)
 - [Quick Start](#quick-start)
 - [Deploy com Docker](#deploy-com-docker)
@@ -34,61 +36,97 @@
 
 ## Visao Geral
 
-O **SA-IA** e uma plataforma educacional completa que guia desenvolvedores atraves de 8 etapas progressivas para se tornarem Engenheiros de IA. Cobre desde fundamentos de Python ate topicos avancados como AI Security e Red Teaming.
+O **SA-IA Academy** e uma plataforma educacional completa com landing page de vendas integrada e 8 modulos progressivos para formar Engenheiros de IA. Conteudo atualizado para 2026 com os modelos e frameworks mais recentes.
 
 ### Numeros
 
 | Metrica | Valor |
 |---------|-------|
-| Etapas completas | **8** |
+| Modulos completos | **8** |
 | Dias de conteudo | **50+** |
 | Exemplos de codigo | **100+** |
 | Exercicios praticos | **30+** |
 | Linhas de codigo educacional | **5.000+** |
+| Modelos referenciados | GPT-5, Claude 4, Gemini 2.5, Llama 4 |
 
 ---
 
 ## Arquitetura
 
 ```
-+-----------------------------------------------------+
-|                   Browser (8510)                     |
-+-----------------------------------------------------+
-                         |
-+-----------------------------------------------------+
-|              Streamlit App (8501)                     |
-|  +-------+  +-------+  +-------+  +-------+         |
-|  |Etapa 1|  |Etapa 2|  |  ...  |  |Etapa 8|         |
-|  +-------+  +-------+  +-------+  +-------+         |
-|                                                       |
-|  [ Healthcheck ] [ Config TOML ] [ Favicon SVG ]     |
-+-----------------------------------------------------+
-|              Python 3.11-slim (Docker)                |
-+-----------------------------------------------------+
++----------------------------------------------------------+
+|               Browser (http://localhost:8510)              |
++----------------------------------------------------------+
+                           |
++----------------------------------------------------------+
+|                    Streamlit App (8501)                    |
+|                                                           |
+|  +--------------+     +------------------------------+   |
+|  | Landing Page |---->| Plataforma (pos-inscricao)   |   |
+|  | (landing.py) |     |                              |   |
+|  | - Hero       |     |  +--------+ +--------+      |   |
+|  | - Social     |     |  |Etapa 1 | |Etapa 2 | ...  |   |
+|  |   Proof      |     |  +--------+ +--------+      |   |
+|  | - Pricing    |     |  +--------+ +--------+      |   |
+|  | - Signup     |     |  |  ...   | |Etapa 8 |      |   |
+|  +--------------+     |  +--------+ +--------+      |   |
+|         |             +------------------------------+   |
+|    session_state                                          |
+|    (enrolled=True)                                        |
+|                                                           |
+|  [ Healthcheck ] [ Config TOML ] [ Favicon SVG ]         |
++----------------------------------------------------------+
+|                Python 3.11-slim (Docker)                   |
++----------------------------------------------------------+
 ```
 
-**Decisoes arquiteturais:**
+### Decisoes Arquiteturais
 
-- **Stateless** &mdash; Nao necessita banco de dados. O conteudo educacional e renderizado em memoria via modulos Python
-- **Multi-stage Docker build** &mdash; Stage `builder` com gcc para compilacao, stage `runtime` minimo (~1.1GB)
-- **Requirements separados** &mdash; `requirements-docker.txt` exclui PyTorch/Transformers (~3.5GB) pois os exemplos sao exibidos via `st.code()`, nao executados
-- **Healthcheck nativo** &mdash; Script Python verifica endpoint `/_stcore/health` do Streamlit
-- **Seguranca** &mdash; Usuario nao-root, `no-new-privileges`, `read_only` rootfs
+- **Landing page como gate** -- Usuarios veem a pagina de vendas primeiro. Apos inscricao via formulario, `session_state["enrolled"]` libera acesso a plataforma completa
+- **Stateless** -- Sem banco de dados. Conteudo renderizado em memoria via modulos Python. Inscricao via `session_state` (sessao do browser)
+- **Multi-stage Docker build** -- Stage `builder` com gcc, stage `runtime` minimo (~1.1GB)
+- **Requirements separados** -- `requirements-docker.txt` exclui PyTorch/Transformers (~3.5GB) pois exemplos sao exibidos em `st.code()`, nao executados
+- **Seguranca** -- Usuario nao-root, `no-new-privileges`, `read_only` rootfs, tmpfs
 
 ---
 
-## Roadmap de 8 Etapas
+## Fluxo da Aplicacao
 
-| # | Etapa | Duracao | Nivel | Topicos Principais |
-|---|-------|---------|-------|--------------------|
+```
+Acesso (localhost:8510)
+    |
+    v
+[enrolled == False?] --Sim--> Landing Page
+    |                           |
+    |                       Formulario de inscricao
+    |                           |
+    |                       session_state["enrolled"] = True
+    |                           |
+    +<--------------------------+
+    |
+    v
+[enrolled == True] --> Plataforma completa
+                        |
+                        +-- Sidebar com menu
+                        +-- 8 etapas de conteudo
+                        +-- Progresso
+                        +-- Botao "Sair"
+```
+
+---
+
+## Roadmap de 8 Modulos
+
+| # | Modulo | Duracao | Nivel | Topicos (atualizado 2026) |
+|---|--------|---------|-------|---------------------------|
 | 1 | **Fundamentos Essenciais** | 7 dias | Iniciante | Python avancado, FastAPI, Docker, Git, Testes |
 | 2 | **Machine Learning Classico** | 7 dias | Iniciante/Inter. | Regressao, Random Forest, XGBoost, MLflow |
 | 3 | **Deep Learning + PyTorch** | 10 dias | Intermediario | CNN, RNN/LSTM, Transformers, Transfer Learning |
-| 4 | **LLMs + Prompt Engineering** | 10 dias | Intermediario | OpenAI, Claude, Gemini, Ollama, CoT, ReAct |
-| 5 | **RAG** | Flexivel | Inter./Avancado | Vector DBs, Chunking, Re-ranking, Hybrid Search |
+| 4 | **LLMs + Prompt Engineering** | 10 dias | Intermediario | GPT-5, Claude 4, Gemini 2.5, Ollama, Llama 4, CoT, ReAct |
+| 5 | **RAG Enterprise** | Flexivel | Inter./Avancado | Vector DBs, Chunking, Re-ranking, Hybrid Search |
 | 6 | **Agentes de IA** | Flexivel | Avancado | LangChain, LangGraph, LlamaIndex, Multi-Agent |
-| 7 | **Deploy e Infraestrutura** | Flexivel | Avancado | Cloud GPU, Kubernetes, MLOps, Monitoring |
-| 8 | **AI Security** | Flexivel | Expert | Prompt Injection, Jailbreak, LlamaGuard, Red Team |
+| 7 | **Deploy e MLOps** | Flexivel | Avancado | Cloud GPU, Kubernetes, CI/CD, Monitoring |
+| 8 | **AI Security** | Flexivel | Expert | Prompt Injection, Red Teaming, LlamaGuard 3 |
 
 ---
 
@@ -96,16 +134,16 @@ O **SA-IA** e uma plataforma educacional completa que guia desenvolvedores atrav
 
 | Camada | Tecnologias |
 |--------|-------------|
-| **Frontend/UI** | Streamlit |
+| **Frontend/UI** | Streamlit, CSS customizado |
+| **Landing Page** | HTML/CSS academico, Streamlit Forms |
 | **Machine Learning** | scikit-learn, XGBoost, MLflow |
 | **Deep Learning** | PyTorch, Transformers (HuggingFace) |
-| **LLMs** | OpenAI, Anthropic Claude, Google Gemini, Ollama |
+| **LLMs** | OpenAI (GPT-5), Anthropic (Claude 4), Google (Gemini 2.5), Ollama (Llama 4) |
 | **RAG** | ChromaDB, Pinecone, LangChain, LlamaIndex |
 | **Agentes** | LangGraph, AutoGen |
 | **MLOps** | MLflow, DVC, Evidently |
-| **Deploy** | Docker, Kubernetes, FastAPI |
+| **Deploy** | Docker multi-stage, Docker Compose, Kubernetes |
 | **Monitoring** | Prometheus |
-| **Containerizacao** | Docker multi-stage, Docker Compose |
 
 ---
 
@@ -124,49 +162,45 @@ O **SA-IA** e uma plataforma educacional completa que guia desenvolvedores atrav
 git clone <url-do-repositorio>
 cd sa_ia
 
-# 2. Crie um ambiente virtual
+# 2. Ambiente virtual
 python -m venv venv
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
 
-# Windows
-venv\Scripts\activate
-
-# Linux/Mac
-source venv/bin/activate
-
-# 3. Instale as dependencias
+# 3. Dependencias
 pip install -r requirements.txt
 
-# 4. Configure variaveis de ambiente (opcional)
+# 4. Variaveis de ambiente (opcional)
 cp env_example.txt .env
-# Edite o .env com suas API keys
+# Edite .env com suas API keys
 
-# 5. Execute a aplicacao
+# 5. Executar
 streamlit run app.py
 ```
 
-A aplicacao estara disponivel em `http://localhost:8501`.
+Acesse `http://localhost:8501`. Voce vera a landing page primeiro.
 
 ---
 
 ## Deploy com Docker
 
-### Build e execucao (recomendado)
+### Build e execucao
 
 ```bash
-# Subir com Docker Compose
+# Subir
 docker compose up -d
 
 # Verificar status
 docker ps --filter "name=sa-ia-learning"
 
-# Ver logs
+# Logs
 docker logs -f sa-ia-learning
 
 # Parar
 docker compose down
 ```
 
-A aplicacao estara disponivel em **`http://localhost:8510`**.
+Acesse **`http://localhost:8510`**.
 
 ### Portas utilizadas
 
@@ -174,20 +208,17 @@ A aplicacao estara disponivel em **`http://localhost:8510`**.
 |---------|-----------|----------------|
 | Streamlit App | **8510** | 8501 |
 
-> As portas foram escolhidas para evitar conflito com outros servicos locais.
+> Porta 8510 escolhida para evitar conflito com 50+ containers locais.
 
 ### Variaveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto (nunca commite este arquivo):
+Crie `.env` na raiz (nunca commite):
 
 ```env
-# Obrigatorias apenas se for usar demos interativas com LLMs
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 GEMINI_API_KEY=AI...
 PINECONE_API_KEY=...
-
-# Opcionais
 APP_ENV=production
 LOG_LEVEL=INFO
 ```
@@ -195,16 +226,16 @@ LOG_LEVEL=INFO
 ### Comandos uteis
 
 ```bash
-# Rebuild apos alteracoes
+# Rebuild
 docker compose up -d --build
 
-# Ver consumo de recursos
+# Recursos
 docker stats sa-ia-learning
 
-# Verificar healthcheck
+# Healthcheck
 curl http://localhost:8510/_stcore/health
 
-# Acessar shell do container
+# Shell
 docker exec -it sa-ia-learning /bin/bash
 ```
 
@@ -214,45 +245,30 @@ docker exec -it sa-ia-learning /bin/bash
 
 ```
 sa_ia/
-├── app.py                          # Aplicacao principal Streamlit
+├── app.py                          # App principal (gate landing -> plataforma)
+├── landing.py                      # Landing page de vendas (estilo academico)
 ├── healthcheck.py                  # Script de healthcheck Docker
 ├── requirements.txt                # Dependencias completas (dev local)
 ├── requirements-docker.txt         # Dependencias otimizadas (Docker)
 ├── Dockerfile                      # Multi-stage build
 ├── docker-compose.yml              # Orquestracao de containers
-├── .dockerignore                   # Exclusoes do build Docker
+├── .dockerignore                   # Exclusoes do build
 ├── .gitignore                      # Exclusoes do Git
-├── env_example.txt                 # Template de variaveis de ambiente
+├── env_example.txt                 # Template de variaveis
 ├── assets/
-│   └── favicon.svg                 # Favicon da aplicacao
+│   └── favicon.svg                 # Favicon (cerebro neural com gradiente)
 ├── .streamlit/
 │   └── config.toml                 # Configuracao Streamlit (producao)
 └── modules/
     ├── __init__.py
-    ├── etapa1/
-    │   ├── __init__.py
-    │   └── fundamentos.py          # Python, FastAPI, Docker, Git
-    ├── etapa2/
-    │   ├── __init__.py
-    │   └── ml_classico.py          # Regressao, Arvores, XGBoost, MLflow
-    ├── etapa3/
-    │   ├── __init__.py
-    │   └── deep_learning.py        # Tensores, CNN, RNN, Transformers
-    ├── etapa4/
-    │   ├── __init__.py
-    │   └── llms_prompts.py         # APIs LLM, Ollama, Prompting
-    ├── etapa5/
-    │   ├── __init__.py
-    │   └── rag.py                  # Vector DBs, Chunking, Hybrid Search
-    ├── etapa6/
-    │   ├── __init__.py
-    │   └── agentes.py              # LangChain, LangGraph, Multi-Agent
-    ├── etapa7/
-    │   ├── __init__.py
-    │   └── deploy.py               # Cloud, Kubernetes, MLOps
-    └── etapa8/
-        ├── __init__.py
-        └── security.py             # Prompt Injection, Red Teaming
+    ├── etapa1/                     # Fundamentos (Python, FastAPI, Docker, Git)
+    ├── etapa2/                     # ML Classico (sklearn, XGBoost, MLflow)
+    ├── etapa3/                     # Deep Learning (PyTorch, CNN, RNN, Transformers)
+    ├── etapa4/                     # LLMs (GPT-5, Claude 4, Gemini 2.5, Ollama)
+    ├── etapa5/                     # RAG (Vector DBs, Chunking, Hybrid Search)
+    ├── etapa6/                     # Agentes (LangChain, LangGraph, Multi-Agent)
+    ├── etapa7/                     # Deploy (Cloud, K8s, MLOps, Monitoring)
+    └── etapa8/                     # AI Security (Injection, Red Team, LlamaGuard 3)
 ```
 
 ---
@@ -263,21 +279,21 @@ sa_ia/
 
 | Parametro | Valor | Descricao |
 |-----------|-------|-----------|
-| `server.port` | 8501 | Porta interna do Streamlit |
-| `server.headless` | true | Modo sem browser (Docker) |
-| `theme.base` | dark | Tema escuro padrao |
-| `theme.primaryColor` | #667eea | Cor primaria (gradiente roxo) |
+| `server.port` | 8501 | Porta interna |
+| `server.headless` | true | Modo Docker |
+| `theme.base` | dark | Tema escuro |
+| `theme.primaryColor` | #667eea | Cor primaria |
 | `runner.fastReruns` | true | Re-execucao otimizada |
 
 ### Docker Compose
 
 | Parametro | Valor | Descricao |
 |-----------|-------|-----------|
-| `memory limit` | 1GB | Limite maximo de RAM |
-| `cpu limit` | 1.0 | Limite de CPU |
+| `memory limit` | 1GB | RAM maxima |
+| `cpu limit` | 1.0 | CPU maxima |
 | `read_only` | true | Filesystem somente leitura |
-| `no-new-privileges` | true | Previne escalacao de privilegios |
-| `healthcheck interval` | 30s | Frequencia de verificacao |
+| `no-new-privileges` | true | Sem escalacao |
+| `healthcheck interval` | 30s | Verificacao de saude |
 
 ---
 
@@ -285,13 +301,10 @@ sa_ia/
 
 ### Healthcheck
 
-O container possui healthcheck integrado que verifica o endpoint nativo do Streamlit:
-
 ```
-GET /_stcore/health → 200 OK
+GET /_stcore/health -> 200 OK ("ok")
 ```
 
-Configuracao:
 - **Intervalo:** 30s
 - **Timeout:** 10s
 - **Retries:** 3
@@ -299,15 +312,9 @@ Configuracao:
 
 ### Logs
 
-Logs estruturados em JSON com rotacao automatica:
-
 ```bash
-# Ver logs em tempo real
 docker logs -f sa-ia-learning
-
-# Configuracao de rotacao
-# max-size: 10MB por arquivo
-# max-file: 3 arquivos
+# Rotacao: max 10MB x 3 arquivos
 ```
 
 ---
@@ -317,45 +324,45 @@ docker logs -f sa-ia-learning
 | Controle | Implementacao |
 |----------|--------------|
 | **Usuario nao-root** | Container executa como `appuser` |
-| **Read-only filesystem** | `read_only: true` no compose |
-| **No-new-privileges** | Previne escalacao via `security_opt` |
-| **Sem secrets hardcoded** | API keys via `.env` e variaveis de ambiente |
-| **tmpfs** | Escritas temporarias em `/tmp` (100MB max) |
+| **Read-only filesystem** | `read_only: true` |
+| **No-new-privileges** | `security_opt` |
+| **Sem secrets hardcoded** | API keys via `.env` |
+| **tmpfs** | Escritas em `/tmp` (100MB max) |
 | **Resource limits** | CPU e memoria limitados |
 | **Log rotation** | Previne disk exhaustion |
-| **XSRF protection** | Configuravel via Streamlit |
 
 ---
 
 ## Contribuindo
 
 1. Fork o repositorio
-2. Crie uma branch: `git checkout -b feature/nova-etapa`
-3. Commit suas mudancas: `git commit -m 'feat: adiciona nova etapa'`
-4. Push: `git push origin feature/nova-etapa`
+2. Crie uma branch: `git checkout -b feature/nova-funcionalidade`
+3. Commit: `git commit -m 'feat: descricao'`
+4. Push: `git push origin feature/nova-funcionalidade`
 5. Abra um Pull Request
 
 ### Convencoes
 
-- **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`)
+- **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`)
 - **Branch naming:** `feature/`, `fix/`, `docs/`
-- **Codigo:** PEP 8, type hints quando aplicavel
-- **Testes:** pytest para novos modulos
+- **Codigo:** PEP 8
+- **Testes:** pytest
 
 ---
 
 ## Melhorias Futuras
 
-- [ ] **Nginx reverse proxy** &mdash; TLS/SSL termination e caching de assets estaticos
-- [ ] **Autenticacao** &mdash; OAuth2 Proxy ou Streamlit Authenticator para controle de acesso
-- [ ] **CI/CD** &mdash; GitHub Actions com build, test, push para registry (ECR/GCR)
-- [ ] **Kubernetes** &mdash; Helm chart com HPA baseado em conexoes WebSocket
-- [ ] **Persistencia** &mdash; PostgreSQL para salvar progresso e checklists dos alunos
-- [ ] **Metricas Prometheus** &mdash; Custom exporter com metricas de uso por etapa
-- [ ] **CDN** &mdash; Assets estaticos via CloudFront/Cloud CDN
-- [ ] **Testes E2E** &mdash; Playwright/Selenium para fluxos criticos
-- [ ] **i18n** &mdash; Internacionalizacao (EN/PT-BR)
-- [ ] **PWA** &mdash; Progressive Web App para acesso offline
+- [ ] **Nginx reverse proxy** -- TLS/SSL termination
+- [ ] **Autenticacao real** -- OAuth2 ou Streamlit Authenticator com banco
+- [ ] **Persistencia** -- PostgreSQL para inscricoes e progresso
+- [ ] **Payment gateway** -- Stripe/Mercado Pago para cobranca real
+- [ ] **CI/CD** -- GitHub Actions com build, test, push para registry
+- [ ] **Kubernetes** -- Helm chart com HPA
+- [ ] **Metricas** -- Prometheus exporter por modulo
+- [ ] **CDN** -- Assets estaticos via CloudFront
+- [ ] **Testes E2E** -- Playwright para fluxos criticos
+- [ ] **i18n** -- Internacionalizacao EN/PT-BR
+- [ ] **Email** -- Confirmacao de inscricao via SMTP/SES
 
 ---
 
@@ -367,8 +374,8 @@ Este projeto esta sob a licenca [MIT](LICENSE).
 
 <div align="center">
 
-**SA-IA** &mdash; Sistema de Aprendizado de IA
+**SA-IA Academy** -- Formacao Enterprise em Inteligencia Artificial
 
-Desenvolvido com Streamlit | Containerizado com Docker
+Conteudo 2026 | Streamlit | Docker
 
 </div>

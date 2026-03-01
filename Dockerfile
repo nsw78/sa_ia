@@ -47,7 +47,7 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 
 # Copia código da aplicação
-COPY app.py .
+COPY app.py landing.py ./
 COPY modules/ ./modules/
 COPY assets/ ./assets/
 COPY healthcheck.py .

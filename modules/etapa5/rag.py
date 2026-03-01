@@ -129,7 +129,7 @@ Responda baseado no contexto fornecido:
 
 # 5. Gerar resposta
 response = client_openai.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     messages=[{"role": "user", "content": prompt}]
 )
 
@@ -385,7 +385,7 @@ def expand_query(query):
     \"\"\"
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4.1-mini",
         messages=[{"role": "user", "content": prompt}]
     )
     

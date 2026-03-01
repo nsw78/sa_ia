@@ -234,7 +234,7 @@ class SecureAISystem:
         \"\"\"
         
         response = self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4.1-mini",
             messages=[{"role": "user", "content": check_prompt}],
             temperature=0
         )
@@ -243,7 +243,7 @@ class SecureAISystem:
     
     def get_response(self, prompt: str) -> str:
         response = self.client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1",
             messages=[
                 {"role": "system", "content": self.system_prompt},
                 {"role": "user", "content": prompt}
@@ -512,7 +512,7 @@ class SafeAIChat:
         
         # 2. Gerar resposta
         response = self.llm.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1",
             messages=[{"role": "user", "content": user_input}]
         ).choices[0].message.content
         

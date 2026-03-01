@@ -1,5 +1,5 @@
 """
-ETAPA 6 — Agentes de IA (2025)
+ETAPA 6 — Agentes de IA (2026)
 Módulo para ensinar criação de agentes autônomos
 """
 import streamlit as st
@@ -8,7 +8,7 @@ import streamlit as st
 def render_etapa6():
     """Renderiza o conteúdo da Etapa 6"""
     
-    st.title("🧱 ETAPA 6 — Agentes de IA (2025)")
+    st.title("🧱 ETAPA 6 — Agentes de IA (2026)")
     st.markdown("**Duração:** Flexível")
     
     st.markdown("""
@@ -79,7 +79,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 
 # Modelo
-llm = ChatOpenAI(model="gpt-4o", temperature=0.7)
+llm = ChatOpenAI(model="gpt-4.1", temperature=0.7)
 
 # Template de prompt
 prompt = ChatPromptTemplate.from_messages([
@@ -183,7 +183,7 @@ tools = [
 ]
 
 # Modelo
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+llm = ChatOpenAI(model="gpt-4.1", temperature=0)
 
 # Prompt
 prompt = ChatPromptTemplate.from_messages([
@@ -323,7 +323,7 @@ class ReactState(TypedDict):
     resposta_final: str
     iteracao: int
 
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(model="gpt-4.1")
 
 def pensar(state: ReactState):
     prompt = f\"\"\"
@@ -394,7 +394,7 @@ from llama_index.llms.openai import OpenAI
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 # Configurar
-Settings.llm = OpenAI(model="gpt-4o", temperature=0.1)
+Settings.llm = OpenAI(model="gpt-4.1", temperature=0.1)
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 
 # Carregar documentos
@@ -479,7 +479,7 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 class MultiAgentSystem:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-4o", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4.1", temperature=0)
         
         # Agente Pesquisador
         self.pesquisador = self.criar_agente(
@@ -551,7 +551,7 @@ import autogen
 # Configurar LLM
 config_list = [
     {
-        "model": "gpt-4o",
+        "model": "gpt-4.1",
         "api_key": "your-key"
     }
 ]
