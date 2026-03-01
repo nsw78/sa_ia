@@ -1,260 +1,374 @@
-# 🤖 Sistema de Aprendizado de IA
+<div align="center">
 
-Um roadmap completo e interativo para se tornar Engenheiro de IA, do zero ao avançado, em 8 etapas estruturadas.
+# SA-IA &mdash; Sistema de Aprendizado de IA
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-red.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+**Plataforma educacional interativa para formacao completa em Engenharia de IA**
 
-## 📚 Sobre o Projeto
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab?logo=python&logoColor=white)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.30%2B-ff4b4b?logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ed?logo=docker&logoColor=white)](https://docker.com)
+[![License MIT](https://img.shields.io/badge/License-MIT-22c55e)](LICENSE)
+[![Health Check](https://img.shields.io/badge/Healthcheck-Enabled-22c55e)]()
 
-Este sistema foi desenvolvido para guiar desenvolvedores através de uma jornada completa de aprendizado em Inteligência Artificial, cobrindo desde fundamentos até tópicos avançados como AI Security e MLOps.
+</div>
 
-### ✨ Características
+---
 
-- 📖 **8 Etapas Completas**: Roadmap estruturado e progressivo
-- 💻 **100+ Exemplos de Código**: Código executável e bem documentado
-- 🎯 **30+ Exercícios Práticos**: Projetos hands-on para cada etapa
-- ⚡ **Interface Interativa**: Aplicação Streamlit moderna e responsiva
-- 🔄 **Conteúdo Atualizado**: Tecnologias e práticas mais recentes (2025)
+## Indice
 
-## 🗺️ Roadmap Completo
+- [Visao Geral](#visao-geral)
+- [Arquitetura](#arquitetura)
+- [Roadmap de 8 Etapas](#roadmap-de-8-etapas)
+- [Stack Tecnologico](#stack-tecnologico)
+- [Quick Start](#quick-start)
+- [Deploy com Docker](#deploy-com-docker)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Configuracao](#configuracao)
+- [Observabilidade](#observabilidade)
+- [Seguranca](#seguranca)
+- [Contribuindo](#contribuindo)
+- [Melhorias Futuras](#melhorias-futuras)
+- [Licenca](#licenca)
 
-### 🧠 ETAPA 1 — Fundamentos Essenciais (7 dias)
-- Python avançado (decorators, context managers, generators)
-- APIs com FastAPI
-- Docker para ambientes de IA
-- Git e testes automatizados
-- **Objetivo**: Virar Dev de IA básico capaz de criar APIs
+---
 
-### 🔢 ETAPA 2 — Machine Learning Clássico (7 dias)
-- Regressão Linear e Logística
-- Árvores de Decisão e Random Forest
-- XGBoost
-- Pipelines e Feature Engineering
-- MLflow para tracking
-- **Objetivo**: Entender ML e treinar modelos próprios
+## Visao Geral
 
-### 🧠 ETAPA 3 — Deep Learning + PyTorch (10 dias)
-- Tensores e Autograd
-- Redes Neurais Artificiais
-- CNN (Visão Computacional)
-- RNN/LSTM (Sequências)
-- Transformers
-- **Objetivo**: Treinar modelos neurais reais
+O **SA-IA** e uma plataforma educacional completa que guia desenvolvedores atraves de 8 etapas progressivas para se tornarem Engenheiros de IA. Cobre desde fundamentos de Python ate topicos avancados como AI Security e Red Teaming.
 
-### 🤖 ETAPA 4 — LLMs + Engenharia de Prompt (10 dias)
-- OpenAI, Gemini, Claude, Llama
-- Modelos locais com Ollama
-- Tokenização e Embeddings
-- Técnicas de Prompting (Zero-shot, Few-shot, CoT)
-- Agentes com ferramentas
-- **Objetivo**: Construir chatbots e aplicações avançadas
+### Numeros
 
-### 📚 ETAPA 5 — RAG (Retrieval Augmented Generation)
-- Vetorização de dados
-- Vector Databases (Chroma, Pinecone, Milvus)
-- Chunking strategies
-- Query transformation e Re-ranking
-- Hybrid Search
-- **Objetivo**: Criar sistemas empresariais com memória
+| Metrica | Valor |
+|---------|-------|
+| Etapas completas | **8** |
+| Dias de conteudo | **50+** |
+| Exemplos de codigo | **100+** |
+| Exercicios praticos | **30+** |
+| Linhas de codigo educacional | **5.000+** |
 
-### 🧱 ETAPA 6 — Agentes de IA (2025)
-- LangChain e LangGraph
-- LlamaIndex
-- Agentes com múltiplas ferramentas
-- Planejamento de longo prazo
-- Multi-Agent Systems
-- **Objetivo**: Criar agentes autônomos complexos
+---
 
-### 🏗️ ETAPA 7 — Deploy e Infraestrutura de IA
-- GPUs no GCP/AWS/Azure
-- Kubernetes para IA
-- CI/CD para modelos
-- MLOps end-to-end
-- Monitoring e Alertas
-- **Objetivo**: Virar AI Platform Engineer
+## Arquitetura
 
-### 🔒 ETAPA 8 — AI Security (Área Premium)
-- Firewall de prompts
-- Detecção de ataques (Injection, Jailbreak)
-- LlamaGuard
-- Red Teaming de IA
-- Proteção de APIs
-- **Objetivo**: Especialista em AI Security
-
-## 🚀 Como Começar
-
-### Pré-requisitos
-
-- Python 3.11 ou superior
-- pip (gerenciador de pacotes Python)
-- Git (opcional, mas recomendado)
-
-### Instalação
-
-1. **Clone o repositório** (ou baixe os arquivos):
-```bash
-git clone <url-do-repositorio>
-cd ml_classic
+```
++-----------------------------------------------------+
+|                   Browser (8510)                     |
++-----------------------------------------------------+
+                         |
++-----------------------------------------------------+
+|              Streamlit App (8501)                     |
+|  +-------+  +-------+  +-------+  +-------+         |
+|  |Etapa 1|  |Etapa 2|  |  ...  |  |Etapa 8|         |
+|  +-------+  +-------+  +-------+  +-------+         |
+|                                                       |
+|  [ Healthcheck ] [ Config TOML ] [ Favicon SVG ]     |
++-----------------------------------------------------+
+|              Python 3.11-slim (Docker)                |
++-----------------------------------------------------+
 ```
 
-2. **Crie um ambiente virtual** (recomendado):
+**Decisoes arquiteturais:**
+
+- **Stateless** &mdash; Nao necessita banco de dados. O conteudo educacional e renderizado em memoria via modulos Python
+- **Multi-stage Docker build** &mdash; Stage `builder` com gcc para compilacao, stage `runtime` minimo (~1.1GB)
+- **Requirements separados** &mdash; `requirements-docker.txt` exclui PyTorch/Transformers (~3.5GB) pois os exemplos sao exibidos via `st.code()`, nao executados
+- **Healthcheck nativo** &mdash; Script Python verifica endpoint `/_stcore/health` do Streamlit
+- **Seguranca** &mdash; Usuario nao-root, `no-new-privileges`, `read_only` rootfs
+
+---
+
+## Roadmap de 8 Etapas
+
+| # | Etapa | Duracao | Nivel | Topicos Principais |
+|---|-------|---------|-------|--------------------|
+| 1 | **Fundamentos Essenciais** | 7 dias | Iniciante | Python avancado, FastAPI, Docker, Git, Testes |
+| 2 | **Machine Learning Classico** | 7 dias | Iniciante/Inter. | Regressao, Random Forest, XGBoost, MLflow |
+| 3 | **Deep Learning + PyTorch** | 10 dias | Intermediario | CNN, RNN/LSTM, Transformers, Transfer Learning |
+| 4 | **LLMs + Prompt Engineering** | 10 dias | Intermediario | OpenAI, Claude, Gemini, Ollama, CoT, ReAct |
+| 5 | **RAG** | Flexivel | Inter./Avancado | Vector DBs, Chunking, Re-ranking, Hybrid Search |
+| 6 | **Agentes de IA** | Flexivel | Avancado | LangChain, LangGraph, LlamaIndex, Multi-Agent |
+| 7 | **Deploy e Infraestrutura** | Flexivel | Avancado | Cloud GPU, Kubernetes, MLOps, Monitoring |
+| 8 | **AI Security** | Flexivel | Expert | Prompt Injection, Jailbreak, LlamaGuard, Red Team |
+
+---
+
+## Stack Tecnologico
+
+| Camada | Tecnologias |
+|--------|-------------|
+| **Frontend/UI** | Streamlit |
+| **Machine Learning** | scikit-learn, XGBoost, MLflow |
+| **Deep Learning** | PyTorch, Transformers (HuggingFace) |
+| **LLMs** | OpenAI, Anthropic Claude, Google Gemini, Ollama |
+| **RAG** | ChromaDB, Pinecone, LangChain, LlamaIndex |
+| **Agentes** | LangGraph, AutoGen |
+| **MLOps** | MLflow, DVC, Evidently |
+| **Deploy** | Docker, Kubernetes, FastAPI |
+| **Monitoring** | Prometheus |
+| **Containerizacao** | Docker multi-stage, Docker Compose |
+
+---
+
+## Quick Start
+
+### Pre-requisitos
+
+- Python 3.11+
+- pip
+- Docker e Docker Compose (para deploy containerizado)
+
+### Instalacao Local
+
 ```bash
-# Windows
+# 1. Clone o repositorio
+git clone <url-do-repositorio>
+cd sa_ia
+
+# 2. Crie um ambiente virtual
 python -m venv venv
+
+# Windows
 venv\Scripts\activate
 
 # Linux/Mac
-python3 -m venv venv
 source venv/bin/activate
-```
 
-3. **Instale as dependências**:
-```bash
+# 3. Instale as dependencias
 pip install -r requirements.txt
-```
 
-4. **Configure as variáveis de ambiente** (opcional):
-```bash
-# Crie um arquivo .env na raiz do projeto
-OPENAI_API_KEY=sua-chave-aqui
-ANTHROPIC_API_KEY=sua-chave-aqui
-GEMINI_API_KEY=sua-chave-aqui
-```
+# 4. Configure variaveis de ambiente (opcional)
+cp env_example.txt .env
+# Edite o .env com suas API keys
 
-### Executar a Aplicação
-
-```bash
+# 5. Execute a aplicacao
 streamlit run app.py
 ```
 
-A aplicação será aberta automaticamente no seu navegador em `http://localhost:8501`
+A aplicacao estara disponivel em `http://localhost:8501`.
 
-## 📖 Estrutura do Projeto
+---
 
-```
-ml_classic/
-├── app.py                      # Aplicação principal Streamlit
-├── requirements.txt            # Dependências do projeto
-├── README.md                   # Este arquivo
-├── .env                        # Variáveis de ambiente (criar)
-├── modules/                    # Módulos das etapas
-│   ├── __init__.py
-│   ├── etapa1/                 # Fundamentos Essenciais
-│   │   ├── __init__.py
-│   │   └── fundamentos.py
-│   ├── etapa2/                 # ML Clássico
-│   │   ├── __init__.py
-│   │   └── ml_classico.py
-│   ├── etapa3/                 # Deep Learning
-│   │   ├── __init__.py
-│   │   └── deep_learning.py
-│   ├── etapa4/                 # LLMs
-│   │   ├── __init__.py
-│   │   └── llms_prompts.py
-│   ├── etapa5/                 # RAG
-│   │   ├── __init__.py
-│   │   └── rag.py
-│   ├── etapa6/                 # Agentes
-│   │   ├── __init__.py
-│   │   └── agentes.py
-│   ├── etapa7/                 # Deploy
-│   │   ├── __init__.py
-│   │   └── deploy.py
-│   └── etapa8/                 # Security
-│       ├── __init__.py
-│       └── security.py
-└── assets/                     # Recursos adicionais (imagens, etc)
-```
+## Deploy com Docker
 
-## 💡 Como Usar
+### Build e execucao (recomendado)
 
-1. **Navegação**: Use o menu lateral para escolher uma etapa
-2. **Estudo**: Leia o conteúdo teórico e analise os exemplos
-3. **Prática**: Execute os exemplos interativos
-4. **Exercícios**: Complete os exercícios práticos propostos
-5. **Checklist**: Marque os itens da checklist ao dominar cada tópico
-6. **Próxima Etapa**: Avance quando se sentir confortável
-
-## 🎯 Dicas de Aprendizado
-
-- ✍️ **Pratique ativamente**: Digite o código, não apenas leia
-- 🔄 **Revise regularmente**: Volte aos conceitos quando necessário
-- 🚀 **Construa projetos**: Aplique em projetos pessoais
-- 👥 **Compartilhe**: Ensine outros para solidificar conhecimento
-- 📚 **Aprofunde**: Use as referências para estudar mais
-- 💪 **Seja consistente**: Estude todos os dias, mesmo que pouco tempo
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Frontend/UI**: Streamlit
-- **Machine Learning**: scikit-learn, XGBoost
-- **Deep Learning**: PyTorch, Transformers
-- **LLMs**: OpenAI, Anthropic, Google, Ollama
-- **RAG**: Chroma, Pinecone, LangChain, LlamaIndex
-- **MLOps**: MLflow, DVC, Evidently
-- **Deploy**: FastAPI, Docker, Kubernetes
-- **Monitoring**: Prometheus, Grafana
-
-## 📦 Instalação de Componentes Opcionais
-
-### Ollama (Modelos Locais)
 ```bash
-# Windows: Baixar de https://ollama.com/download
-# Linux/Mac:
-curl -fsSL https://ollama.com/install.sh | sh
+# Subir com Docker Compose
+docker compose up -d
 
-# Baixar modelos
-ollama pull llama3.1
-ollama pull mistral
+# Verificar status
+docker ps --filter "name=sa-ia-learning"
+
+# Ver logs
+docker logs -f sa-ia-learning
+
+# Parar
+docker compose down
 ```
 
-### Docker (Containerização)
-- Windows/Mac: [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- Linux: Via package manager
+A aplicacao estara disponivel em **`http://localhost:8510`**.
 
-## 🤝 Contribuindo
+### Portas utilizadas
 
-Contribuições são bem-vindas! Sinta-se à vontade para:
+| Servico | Porta Host | Porta Container |
+|---------|-----------|----------------|
+| Streamlit App | **8510** | 8501 |
 
-1. Fazer fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/NovaEtapa`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova etapa'`)
-4. Push para a branch (`git push origin feature/NovaEtapa`)
-5. Abrir um Pull Request
+> As portas foram escolhidas para evitar conflito com outros servicos locais.
 
-## 📝 Licença
+### Variaveis de ambiente
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Crie um arquivo `.env` na raiz do projeto (nunca commite este arquivo):
 
-## 🌟 Agradecimentos
+```env
+# Obrigatorias apenas se for usar demos interativas com LLMs
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=AI...
+PINECONE_API_KEY=...
 
-Este projeto foi desenvolvido com base nas melhores práticas e tecnologias mais recentes de IA, consolidando conhecimento de múltiplas fontes e experiências práticas.
+# Opcionais
+APP_ENV=production
+LOG_LEVEL=INFO
+```
 
-## 📧 Contato e Suporte
+### Comandos uteis
 
-- **Issues**: Para reportar bugs ou sugerir melhorias, abra uma issue no GitHub
-- **Discussões**: Use a aba Discussions para perguntas e compartilhar experiências
+```bash
+# Rebuild apos alteracoes
+docker compose up -d --build
 
-## 🎓 Próximos Passos
+# Ver consumo de recursos
+docker stats sa-ia-learning
 
-Após completar este roadmap, você estará preparado para:
+# Verificar healthcheck
+curl http://localhost:8510/_stcore/health
 
-- 🎯 **Trabalhar** como Engenheiro de IA/ML
-- 🚀 **Construir** produtos de IA do zero
-- 💼 **Consultorias** e projetos freelance
-- 🏢 **Liderar** times de IA
-- 📚 **Continuar** aprendendo (IA nunca para de evoluir!)
+# Acessar shell do container
+docker exec -it sa-ia-learning /bin/bash
+```
+
+---
+
+## Estrutura do Projeto
+
+```
+sa_ia/
+├── app.py                          # Aplicacao principal Streamlit
+├── healthcheck.py                  # Script de healthcheck Docker
+├── requirements.txt                # Dependencias completas (dev local)
+├── requirements-docker.txt         # Dependencias otimizadas (Docker)
+├── Dockerfile                      # Multi-stage build
+├── docker-compose.yml              # Orquestracao de containers
+├── .dockerignore                   # Exclusoes do build Docker
+├── .gitignore                      # Exclusoes do Git
+├── env_example.txt                 # Template de variaveis de ambiente
+├── assets/
+│   └── favicon.svg                 # Favicon da aplicacao
+├── .streamlit/
+│   └── config.toml                 # Configuracao Streamlit (producao)
+└── modules/
+    ├── __init__.py
+    ├── etapa1/
+    │   ├── __init__.py
+    │   └── fundamentos.py          # Python, FastAPI, Docker, Git
+    ├── etapa2/
+    │   ├── __init__.py
+    │   └── ml_classico.py          # Regressao, Arvores, XGBoost, MLflow
+    ├── etapa3/
+    │   ├── __init__.py
+    │   └── deep_learning.py        # Tensores, CNN, RNN, Transformers
+    ├── etapa4/
+    │   ├── __init__.py
+    │   └── llms_prompts.py         # APIs LLM, Ollama, Prompting
+    ├── etapa5/
+    │   ├── __init__.py
+    │   └── rag.py                  # Vector DBs, Chunking, Hybrid Search
+    ├── etapa6/
+    │   ├── __init__.py
+    │   └── agentes.py              # LangChain, LangGraph, Multi-Agent
+    ├── etapa7/
+    │   ├── __init__.py
+    │   └── deploy.py               # Cloud, Kubernetes, MLOps
+    └── etapa8/
+        ├── __init__.py
+        └── security.py             # Prompt Injection, Red Teaming
+```
+
+---
+
+## Configuracao
+
+### Streamlit (`.streamlit/config.toml`)
+
+| Parametro | Valor | Descricao |
+|-----------|-------|-----------|
+| `server.port` | 8501 | Porta interna do Streamlit |
+| `server.headless` | true | Modo sem browser (Docker) |
+| `theme.base` | dark | Tema escuro padrao |
+| `theme.primaryColor` | #667eea | Cor primaria (gradiente roxo) |
+| `runner.fastReruns` | true | Re-execucao otimizada |
+
+### Docker Compose
+
+| Parametro | Valor | Descricao |
+|-----------|-------|-----------|
+| `memory limit` | 1GB | Limite maximo de RAM |
+| `cpu limit` | 1.0 | Limite de CPU |
+| `read_only` | true | Filesystem somente leitura |
+| `no-new-privileges` | true | Previne escalacao de privilegios |
+| `healthcheck interval` | 30s | Frequencia de verificacao |
+
+---
+
+## Observabilidade
+
+### Healthcheck
+
+O container possui healthcheck integrado que verifica o endpoint nativo do Streamlit:
+
+```
+GET /_stcore/health → 200 OK
+```
+
+Configuracao:
+- **Intervalo:** 30s
+- **Timeout:** 10s
+- **Retries:** 3
+- **Start period:** 20s
+
+### Logs
+
+Logs estruturados em JSON com rotacao automatica:
+
+```bash
+# Ver logs em tempo real
+docker logs -f sa-ia-learning
+
+# Configuracao de rotacao
+# max-size: 10MB por arquivo
+# max-file: 3 arquivos
+```
+
+---
+
+## Seguranca
+
+| Controle | Implementacao |
+|----------|--------------|
+| **Usuario nao-root** | Container executa como `appuser` |
+| **Read-only filesystem** | `read_only: true` no compose |
+| **No-new-privileges** | Previne escalacao via `security_opt` |
+| **Sem secrets hardcoded** | API keys via `.env` e variaveis de ambiente |
+| **tmpfs** | Escritas temporarias em `/tmp` (100MB max) |
+| **Resource limits** | CPU e memoria limitados |
+| **Log rotation** | Previne disk exhaustion |
+| **XSRF protection** | Configuravel via Streamlit |
+
+---
+
+## Contribuindo
+
+1. Fork o repositorio
+2. Crie uma branch: `git checkout -b feature/nova-etapa`
+3. Commit suas mudancas: `git commit -m 'feat: adiciona nova etapa'`
+4. Push: `git push origin feature/nova-etapa`
+5. Abra um Pull Request
+
+### Convencoes
+
+- **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`)
+- **Branch naming:** `feature/`, `fix/`, `docs/`
+- **Codigo:** PEP 8, type hints quando aplicavel
+- **Testes:** pytest para novos modulos
+
+---
+
+## Melhorias Futuras
+
+- [ ] **Nginx reverse proxy** &mdash; TLS/SSL termination e caching de assets estaticos
+- [ ] **Autenticacao** &mdash; OAuth2 Proxy ou Streamlit Authenticator para controle de acesso
+- [ ] **CI/CD** &mdash; GitHub Actions com build, test, push para registry (ECR/GCR)
+- [ ] **Kubernetes** &mdash; Helm chart com HPA baseado em conexoes WebSocket
+- [ ] **Persistencia** &mdash; PostgreSQL para salvar progresso e checklists dos alunos
+- [ ] **Metricas Prometheus** &mdash; Custom exporter com metricas de uso por etapa
+- [ ] **CDN** &mdash; Assets estaticos via CloudFront/Cloud CDN
+- [ ] **Testes E2E** &mdash; Playwright/Selenium para fluxos criticos
+- [ ] **i18n** &mdash; Internacionalizacao (EN/PT-BR)
+- [ ] **PWA** &mdash; Progressive Web App para acesso offline
+
+---
+
+## Licenca
+
+Este projeto esta sob a licenca [MIT](LICENSE).
 
 ---
 
 <div align="center">
 
-**⭐ Se este projeto te ajudou, considere dar uma estrela!**
+**SA-IA** &mdash; Sistema de Aprendizado de IA
 
-**💻 Desenvolvido com ❤️ e Streamlit**
-
-**🤖 Bons estudos e sucesso na sua jornada de IA!**
+Desenvolvido com Streamlit | Containerizado com Docker
 
 </div>

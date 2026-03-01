@@ -78,6 +78,9 @@ chroma_db/
 htmlcov/
 .pytest_cache/
 
+# Docker
+docker-compose.override.yml
+
 # Misc
 *.bak
 *.tmp

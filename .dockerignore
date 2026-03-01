@@ -1,0 +1,81 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv/
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Models & Data (heavy files)
+models/*.pkl
+models/*.h5
+models/*.bin
+models/*.pt
+models/*.pth
+data/*.csv
+data/*.json
+data/*.parquet
+*.model
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Docker
+Dockerfile
+docker-compose*.yml
+
+# DVC
+.dvc/
+
+# ChromaDB
+chroma_db/
+*.db
+
+# Docs
+*.md
+LICENSE
+
+# Misc
+*.bak
+*.tmp

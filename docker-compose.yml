@@ -1,0 +1,72 @@
+# =============================================================================
+# Docker Compose - Sistema de Aprendizado de IA
+# Porta externa: 8510 (evita conflito com ambientes locais)
+# =============================================================================
+# Decisões arquiteturais:
+# - Sem banco de dados: a plataforma é stateless (conteúdo educacional)
+# - Sem Redis: não há sessões persistentes ou cache necessário
+# - Volume para logs: observabilidade em produção
+# - Resource limits: proteção contra consumo excessivo
+# - Read-only rootfs: segurança contra escrita maliciosa
+# - Security-opt no-new-privileges: previne escalação de privilégios
+# =============================================================================
+
+services:
+  sa-ia-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sa-ia-learning
+    restart: unless-stopped
+    ports:
+      - "8510:8501"
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+      # API Keys (injetadas via .env, NUNCA hardcoded)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - PINECONE_API_KEY=${PINECONE_API_KEY:-}
+    volumes:
+      - sa-ia-logs:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.0"
+        reservations:
+          memory: 256M
+          cpus: "0.25"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+    networks:
+      - sa-ia-net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "sa-ia-learning"
+
+volumes:
+  sa-ia-logs:
+    driver: local
+
+networks:
+  sa-ia-net:
+    driver: bridge
+    name: sa-ia-network

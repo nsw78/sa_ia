@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="brain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#e0e7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <!-- Brain/AI icon -->
+  <g transform="translate(64,64)" fill="none" stroke="url(#brain)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left hemisphere -->
+    <path d="M-6,-28 C-20,-28 -30,-18 -30,-6 C-30,0 -27,5 -22,8 C-27,11 -30,17 -28,24 C-26,30 -20,34 -14,34 C-10,34 -6,32 -4,29"/>
+    <path d="M-6,-28 C-6,-22 -10,-16 -16,-12"/>
+    <path d="M-22,8 C-16,8 -10,4 -6,0"/>
+    <!-- Right hemisphere -->
+    <path d="M6,-28 C20,-28 30,-18 30,-6 C30,0 27,5 22,8 C27,11 30,17 28,24 C26,30 20,34 14,34 C10,34 6,32 4,29"/>
+    <path d="M6,-28 C6,-22 10,-16 16,-12"/>
+    <path d="M22,8 C16,8 10,4 6,0"/>
+    <!-- Center connection -->
+    <line x1="0" y1="-28" x2="0" y2="34"/>
+    <!-- Neural nodes -->
+    <circle cx="-16" cy="-12" r="3" fill="#ffffff" stroke="none"/>
+    <circle cx="16" cy="-12" r="3" fill="#ffffff" stroke="none"/>
+    <circle cx="-22" cy="8" r="3" fill="#ffffff" stroke="none"/>
+    <circle cx="22" cy="8" r="3" fill="#ffffff" stroke="none"/>
+    <circle cx="0" cy="-2" r="3.5" fill="#ffffff" stroke="none"/>
+    <circle cx="0" cy="16" r="3" fill="#ffffff" stroke="none"/>
+    <!-- Neural connections -->
+    <line x1="-16" y1="-12" x2="0" y2="-2" stroke-width="1.5" opacity="0.6"/>
+    <line x1="16" y1="-12" x2="0" y2="-2" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-22" y1="8" x2="0" y2="-2" stroke-width="1.5" opacity="0.6"/>
+    <line x1="22" y1="8" x2="0" y2="-2" stroke-width="1.5" opacity="0.6"/>
+    <line x1="0" y1="-2" x2="0" y2="16" stroke-width="1.5" opacity="0.6"/>
+  </g>
+</svg>

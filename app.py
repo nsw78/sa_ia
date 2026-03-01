@@ -2,6 +2,7 @@
 Sistema de Aprendizado de IA
 Roadmap completo de 8 etapas para se tornar Engenheiro de IA
 """
+import pathlib
 import streamlit as st
 from modules.etapa1 import render_etapa1
 from modules.etapa2 import render_etapa2
@@ -12,15 +13,19 @@ from modules.etapa6 import render_etapa6
 from modules.etapa7 import render_etapa7
 from modules.etapa8 import render_etapa8
 
+# Favicon
+_FAVICON = pathlib.Path(__file__).parent / "assets" / "favicon.svg"
+_ICON = str(_FAVICON) if _FAVICON.exists() else "🤖"
+
 # Configuração da página
 st.set_page_config(
-    page_title="Sistema de Aprendizado de IA",
-    page_icon="🤖",
+    page_title="SA-IA | Sistema de Aprendizado de IA",
+    page_icon=_ICON,
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# CSS customizado
+# CSS customizado (compatível com tema dark e light)
 st.markdown("""
 <style>
     .main-header {
@@ -32,32 +37,49 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         padding: 1rem 0;
     }
-    
+
     .subtitle {
         text-align: center;
         font-size: 1.2rem;
-        color: #666;
+        color: #a0a0b0;
         margin-bottom: 2rem;
     }
-    
-    .etapa-card {
-        padding: 1rem;
-        border-radius: 10px;
-        border: 2px solid #e0e0e0;
-        margin: 0.5rem 0;
-        transition: all 0.3s;
-    }
-    
-    .etapa-card:hover {
-        border-color: #667eea;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-    }
-    
-    .stats-box {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 10px;
+
+    .stat-card {
+        background: linear-gradient(135deg, #667eea22, #764ba222);
+        border: 1px solid #667eea44;
+        border-radius: 12px;
+        padding: 1.5rem 1rem;
         text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
+    }
+
+    .stat-number {
+        font-size: 2.4rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: #a0a0b0;
+        margin: 0.3rem 0 0 0;
+        font-weight: 500;
+    }
+
+    .roadmap-step {
+        border-left: 3px solid #667eea;
+        padding-left: 1rem;
+        margin-bottom: 0.5rem;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -88,39 +110,23 @@ def render_home():
     ### 📊 Estatísticas do Programa:
     """)
     
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown("""
-        <div class="stats-box">
-            <h2>8</h2>
-            <p>Etapas Completas</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="stats-box">
-            <h2>50+</h2>
-            <p>Dias de Conteúdo</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div class="stats-box">
-            <h2>100+</h2>
-            <p>Exemplos de Código</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown("""
-        <div class="stats-box">
-            <h2>30+</h2>
-            <p>Exercícios Práticos</p>
-        </div>
-        """, unsafe_allow_html=True)
+    stats = [
+        ("8", "Etapas Completas"),
+        ("50+", "Dias de Conteudo"),
+        ("100+", "Exemplos de Codigo"),
+        ("30+", "Exercicios Praticos"),
+    ]
+
+    cols = st.columns(4)
+    for col, (number, label) in zip(cols, stats):
+        with col:
+            st.markdown(
+                f'<div class="stat-card">'
+                f'<p class="stat-number">{number}</p>'
+                f'<p class="stat-label">{label}</p>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
     
     st.markdown("---")
     
